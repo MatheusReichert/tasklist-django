@@ -1,5 +1,1 @@
-# tasklist-djnago
-# tasklist-djnago
-# tasklist-djnago
-# tasklist-djnago
-# tasklist-djnago
+# Lista de tarefas feita em django
