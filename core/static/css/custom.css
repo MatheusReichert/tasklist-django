@@ -1,0 +1,95 @@
+.modal {
+  overflow-x: hidden !important;
+}
+
+dialog {
+  overflow-y: hidden !important;
+}
+
+.close-icon {
+  margin: 0;
+  margin-left: var(--spacing);
+  float: right;
+  outline: none;
+}
+
+.close-icon:hover {
+  outline: none !important;
+}
+
+dialog > article > header {
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+dialog > article {
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
+  overflow-x: hidden !important;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 10px 0px;
+  max-width: 40%;
+}
+
+.card > header > h3 {
+  font-size: x-large;
+  width: 100% !important;
+  word-wrap: break-word !important;
+  text-align: center;
+}
+
+.card > header,
+footer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+.card > header > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+#main canvas {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+}
+
+main > div {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.cancel-button:hover {
+  text-decoration: none;
+  background-color: rgba(255, 0, 0, 0.534);
+}
+
+#description {
+    resize: none !important;
+}
+
+article > header > button {
+  width: 100px;
+  height: 100px;
+}

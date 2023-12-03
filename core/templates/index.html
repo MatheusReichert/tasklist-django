@@ -1,0 +1,144 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-Br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{% static "css/custom.css" %}">
+        <link rel="stylesheet" href="{% static "css/pico/pico.min.css" %}">
+        <title>Lista de tarefas</title>
+    </head>
+    <body>
+        <!-- particles.js container -->
+        <!-- stats - count particles -->
+        <div class="count-particles">
+            <span class="js-count-particles"></span>
+        </div>
+        <main class="container" id="main">
+            <div class="container">
+                <h1>Lista de tarefas</h1>
+                <button id="openModal" data-tooltip="Nova tarefa" data-placement="top">
+                    <i title="New" class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+            <div class="cards">
+                {% for task in tasks %}
+                    <article class="card">
+                        <header>
+                            <h3>{{ task.name | title }}</h3>
+                            <div class="grid">
+                                <form id="edit-form">
+                                    <button class="edit-button outline"
+                                            data-task-id="{{ task.id }}"
+                                            data-tooltip="Editar tarefa"
+                                            data-placement="bottom">
+                                        <a id="edit-button"><i class="fa-solid fa-pen-to-square " title="Editar"></i></a>
+                                    </button>
+                                </form>
+                                <form action="{% url 'deletar' task.id %}">
+                                    <button class="edit-button outline"
+                                            data-tooltip="Apagar tarefa"
+                                            data-placement="bottom">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </header>
+                        {{ task.description }}
+                        <footer>
+                            <div>Prioridade: {{ task.priority }}</div>
+                            <p>Criada em: {{ task.created_at | date:"d/m/Y h:m:s" }}</p>
+                        </footer>
+                    </article>
+                    <dialog id="taskUpdateModal{{ task.id }}" class="container-fluid modal">
+                        <article class=" modal container-fluid">
+                            <header>
+                                <a data-task-id="{{ task.id }}"
+                                   class="cancel-button fa-solid fa-ban close-icon"></a>
+                                <h3>Editar tarefa</h3>
+                            </header>
+                            <form id="cadastro" action="{% url 'update' task.id %}" method="post">
+                                {% csrf_token %}
+                                <label for="name">Nome da tarefa:</label>
+                                <input type="text" name="name" value="{{ task.name }}" id="name" required />
+                                <label for="description">Descrição da tarefa:</label>
+                                <textarea type="text"
+                                          name="description"
+                                          id="description"
+                                          value="{{ task.description }}"
+                                          required></textarea>
+                                <fieldset id="priority" class="grid" required>
+                                    <legend>Nova Prioridade:</legend>
+                                    <label for="low_priority">
+                                        <input type="radio" id="low_priority" name="priority" value="LOW" checked>
+                                        Baixa
+                                    </label>
+                                    <label for="medium_priority">
+                                        <input type="radio"
+                                            id="medium_priority"
+                                            name="priority"
+                                            value="MEDIUM"
+                                            %}>
+                                            Média
+                                        </label>
+                                        <label for="high_priority">
+                                            <input type="radio" id="high_priority" name="priority" value="HIGH">
+                                            Alta
+                                        </label>
+                                    </fieldset>
+                                    <br>
+                                    <div class="grid">
+                                        <button type="button"
+                                                data-task-id="{{ task.id }}"
+                                                class="cancel-button outline">Cancelar</button>
+                                        <input type="submit" value="Editar" />
+                                    </div>
+                                </form>
+                            </article>
+                        </dialog>
+                    {% endfor %}
+                </div>
+                <dialog id="taskModal" class="container-fluid modal">
+                    <article class=" modal container-fluid">
+                        <header>
+                            <a class="cancel-button fa-solid fa-ban close-icon"></a>
+                            <h3>Nova tarefa</h3>
+                        </header>
+                        <form id="cadastro" action="{% url 'salvar' %}" method="post">
+                            {% csrf_token %}
+                            <label for="name">Nome da tarefa:</label>
+                            <input type="text" name="name" id="name" maxlength="20" />
+                            <label for="description">Descrição da tarefa:</label>
+                            <textarea type="text" name="description" id="description" required></textarea>
+                            <fieldset id="priority" class="grid" required>
+                                <legend>Prioridade:</legend>
+                                <label for="low_priority">
+                                    <input type="radio" id="low_priority" name="priority" value="LOW" checked>
+                                    Baixa
+                                </label>
+                                <label for="medium_priority">
+                                    <input type="radio" id="medium_priority" name="priority" value="MEDIUM">
+                                    Média
+                                </label>
+                                <label for="high_priority">
+                                    <input type="radio" id="high_priority" name="priority" value="HIGH">
+                                    Alta
+                                </label>
+                            </fieldset>
+                            <br>
+                            <div class="grid">
+                                <button type="button" class="cancel-button outline">Cancelar</button>
+                                <input type="submit" value="Cadastrar" />
+                            </div>
+                        </form>
+                    </article>
+                </dialog>
+            </main>
+            <script src="{% static 'particle/particles.min.js' %}"></script>
+            <script src="{% static 'particle/stats.min.js' %}"></script>
+            <script src="https://kit.fontawesome.com/4344910a90.js"
+                    crossorigin="anonymous"></script>
+            <script src="{% static "js/modal/modal.js" %}"></script>
+        </body>
+    </html>
