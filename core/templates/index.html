@@ -28,7 +28,7 @@
                         <header>
                             <h3>{{ task.name | title }}</h3>
                             <div class="grid">
-                                <form id="edit-form">
+                                <form class="edit-form" data-task-id="{{ task.id }}">
                                     <button class="edit-button outline"
                                             data-task-id="{{ task.id }}"
                                             data-tooltip="Editar tarefa"

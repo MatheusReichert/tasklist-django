@@ -6,6 +6,7 @@ const closeModalButtons = document.querySelectorAll('#taskModal .cancel-button')
 
 const cancelButton = document.querySelectorAll('.cancel-button');
 const editButtons = document.querySelectorAll('.edit-button');
+const editForms = document.getElementsByClassName('edit-form');
 
 
 openModalButton.addEventListener('click', () => {
@@ -16,7 +17,7 @@ editButtons.forEach(button => {
   button.addEventListener('click', () => {
       // Obtendo o ID da tarefa associada ao botão de edição clicado
       const taskId = button.getAttribute('data-task-id');
-      
+      console.log(taskId+"")
       // Selecionando o modal de atualização da tarefa correspondente
       const taskUpdateModal = document.getElementById(`taskUpdateModal${taskId}`);
       
@@ -50,7 +51,9 @@ cancelButton.forEach(button => {
   });
 });
 
-document.getElementById('edit-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Impede o envio do formulário padrão
-  // Lógica para processar os dados do formulário aqui, sem recarregar a página ou adicionar parâmetros à URL
+Array.from(editForms).forEach(button => {
+  button.addEventListener('submit', function(event) {
+    event.preventDefault(); // Impede o envio do formulário padrão
+    // Lógica para processar os dados do formulário aqui, sem recarregar a página ou adicionar parâmetros à URL
+  });
 });
